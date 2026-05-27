@@ -48,7 +48,7 @@ confirm
 ```bash
 # ISP
 nmcli con show
-nmcli con mod {con_name} ipv4.method manual ipv4.address 172.16.2.1/28 ipv4.gateway 172.16.2.1 # to br-rtr
+nmcli con mod {con_name} ipv4.method manual ipv4.address 172.16.2.1/28 ipv4.gateway 172.16.2.1 ipv4.dns "77.88.8.8" # to br-rtr
 nmcli con up {con_name}
 
 # BR-RTR
