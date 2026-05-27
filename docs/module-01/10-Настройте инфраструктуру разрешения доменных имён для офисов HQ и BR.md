@@ -58,6 +58,80 @@ chmod 0640 /var/named/master/*
 systemctl enable --now named
 ```
 
+# Настройка обратной зоны
+```bash
+vi /etc/named.conf
+```
+```diff
++zone "100.168.192.in-addr.arpa" {
++        type master;
++        file "master/100.168.192.in-addr.arpa";
++};
++
++zone "200.168.192.in-addr.arpa" {
++        type master;
++        file "master/200.168.192.in-addr.arpa";
++};
++
++zone "255.168.192.in-addr.arpa" {
++        type master;
++        file "master/255.168.192.in-addr.arpa";
++};
+```
+```bash
+cp au-team.irpo /var/named/master/100.168.192.in-addr.arpa
+cp au-team.irpo /var/named/master/200.168.192.in-addr.arpa
+cp au-team.irpo /var/named/master/255.168.192.in-addr.arpa
+```
+
+```diff
+$TTL 1d
++$ORIGIN 100.168.192.in-addr.arpa.
++@             IN      SOA  @ ns1.au-team.irpo. (
+                              0          ; serial number
+                              1D         ; refresh
+                              1H         ; update retry
+                              3W         ; expiry
+                              3H         ; minimum
+                              )
+              IN      NS      ns1.au-team.irpo.
++2             IN      PTR     hq-srv.au-team.irpo.
+```
+
+```diff
+$TTL 1d
++$ORIGIN 200.168.192.in-addr.arpa.
++@             IN      SOA  @ ns1.au-team.irpo. (
+                              0          ; serial number
+                              1D         ; refresh
+                              1H         ; update retry
+                              3W         ; expiry
+                              3H         ; minimum
+                              )
+              IN      NS      ns1.au-team.irpo.
++2             IN      PTR     hq-cli.au-team.irpo.
+```
+
+```diff
+$TTL 1d
++$ORIGIN 255.168.192.in-addr.arpa.
++@             IN      SOA  @ ns1.au-team.irpo. (
+                              0          ; serial number
+                              1D         ; refresh
+                              1H         ; update retry
+                              3W         ; expiry
+                              3H         ; minimum
+                              )
+              IN      NS      ns1.au-team.irpo.
++2             IN      PTR     br-srv.au-team.irpo.
+```
+
+```bash
+chown root:named /var/named/master/100.168.192.in-addr.arpa
+chown root:named /var/named/master/200.168.192.in-addr.arpa
+chown root:named /var/named/master/255.168.192.in-addr.arpa
+```
+
 # Если что-то не работает, то
 ```bash
 named-checkconf
