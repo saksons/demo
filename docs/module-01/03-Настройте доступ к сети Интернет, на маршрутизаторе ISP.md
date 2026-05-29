@@ -91,11 +91,15 @@ iptables-save > /etc/sysconfig/iptables
 useradd -m -s /bin/bash -u 2026 -U sshuser
 passwd sshuser
 visudo
+# добавить:
+sshuser ALL=(ALL) NOPASSWD:ALL
 
 # BR-SRV
 useradd -m -s /bin/bash -u 2026 -U sshuser
 passwd sshuser
 visudo
+# добавить:
+sshuser ALL=(ALL) NOPASSWD:ALL
 ```
 
 ## Создайте пользователя net_admin на маршрутизаторах HQ-RTR и BR- RTR
