@@ -3,7 +3,7 @@
 >**Используйте	образы	site_latest и mariadb_latest располагающиеся	в директории docker в образе Additional.iso**
 >**Основной контейнер testapp должен называться tespapp**
 >**Контейнер с базой данных должен называться db**
->**Импортируйте образы в docker, укажите в yaml файле параметры подключения к СУБД, имя БД - testdb, пользователь testс паролем P@ssw0rd, порт приложения 8080, при необходимости другие параметры**
+>**Импортируйте образы в docker, укажите в yaml файле параметры подключения к СУБД, имя БД - testdb, пользователь test с паролем P@ssw0rd, порт приложения 8080, при необходимости другие параметры**
 >**Приложение должно быть доступно для внешних подключений через порт 8080**
 
 ```bash
@@ -42,7 +42,7 @@ services:
     restart: always
     environment:
       DB_NAME: 'testdb'
-      DB_USER: 'testc'
+      DB_USER: 'test'
       DB_PASS: 'P@ssw0rd'
       MARIADB_ROOT_PASSWORD: 'P@ssw0rd'
     ports:
@@ -59,7 +59,7 @@ services:
       DB_HOST: 'db'
       DB_PORT: '3306'
       DB_NAME: 'testdb'
-      DB_USER: 'testc'
+      DB_USER: 'test'
       DB_PASS: 'P@ssw0rd'
       DB_TYPE: 'maria'
     ports:
@@ -76,8 +76,8 @@ docker-compsoe up -d
 docker exec -it db mysql -u root -p
 
     CREATE DATABASE testdb;
-    CREATE USER 'testс'@'%' IDENTIFIED BY 'P@ssw0rd';
-    GRANT ALL PRIVILEGES ON testdb.* TO 'testc'@'%';
+    CREATE USER 'test'@'%' IDENTIFIED BY 'P@ssw0rd';
+    GRANT ALL PRIVILEGES ON testdb.* TO 'test'@'%';
     FLUSH PRIVILEGES;
     \q
 ```

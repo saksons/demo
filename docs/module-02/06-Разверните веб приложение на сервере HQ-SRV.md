@@ -3,7 +3,7 @@
 > **В качестве системы управления базами данных используйте mariadb**
 > **Файлы веб приложения и дамп базы данных находятся в директории web образа Additional.iso**
 > **Выполните импорт схемы и данных из файла dump.sql в базу данных webdb**
-> **Создайте пользователя webс паролем P@ssw0rd и предоставьте ему права доступа к этой базе данных**
+> **Создайте пользователя web с паролем P@ssw0rd и предоставьте ему права доступа к этой базе данных**
 > **Файлы index.php и директорию images скопируйте в каталог веб сервера apache В	файле	index.php	укажите	правильные	учётные	данные	для подключения к БД**
 > **Запустите веб сервер и убедитесь в работоспособности приложения**
 > **Основные параметры отметьте в отчёте**
@@ -30,8 +30,8 @@ mysql_secure_installation
 mysql -u root -p
 
 CREATE DATABASE webdb;
-CREATE USER 'webc'@'%' IDENTIFIED BY 'P@ssw0rd';
-GRANT ALL PRIVILEGE webdb.* TO 'webc'@'%';
+CREATE USER 'web'@'%' IDENTIFIED BY 'P@ssw0rd';
+GRANT ALL PRIVILEGE webdb.* TO 'web'@'%';
 FLUSH PRIVILEGES;
 
 mysql webdb < ./web_iso/web/dump.sql
