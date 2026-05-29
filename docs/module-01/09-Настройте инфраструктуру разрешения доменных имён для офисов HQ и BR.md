@@ -1,9 +1,7 @@
 # Настройте инфраструктуру разрешения доменных имён для офисов HQ и BR
-
 > **Основной DNS-сервер реализован на HQ-SRV**
 > **Сервер должен обеспечивать разрешение имён в сетевые адреса устройств и обратно в соответствии с таблицей 3**
-> **В качестве DNS сервера пересылки используйте любой общедоступный DNS сервер(77.88.8.7, 77.88.8.3 или другие)**
-
+> **В качестве DNS сервера пересылки используйте любой общедоступный DNS сервер (77.88.8.7, 77.88.8.3 или другие)**
 ```bash
 dnf install bind bind-utils -y
 
@@ -132,7 +130,30 @@ chown root:named /var/named/master/200.168.192.in-addr.arpa
 chown root:named /var/named/master/255.168.192.in-addr.arpa
 ```
 
-# Если что-то не работает, то
+## Если что-то не работает, то
 ```bash
 named-checkconf
+```
+
+
+# Настройте часовой пояс на всех устройствах (за исключением виртуального коммутатора, в случае его использования) согласно месту проведения экзамена
+```bash
+# ISP
+timedatectl set-timezone Europe/Moscow
+
+# HQ-RTR
+clock timezone gmt +3
+end
+commit
+# BR-RTR
+clock timezone gmt +3
+end
+commit
+
+# HQ-SRV
+timedatectl set-timezone Europe/Moscow
+# HQ-CLI
+timedatectl set-timezone Europe/Moscow
+# BR-SRV
+timedatectl set-timezone Europe/Moscow
 ```
